@@ -1,21 +1,27 @@
 .container {
   @apply flex-grow;
   @apply h-full;
-  @apply px-10;
+  @apply px-10 py-5;
   @apply scrollbar-thin scrollbar-thumb-white  scrollbar-track-red-500 overflow-y-scroll;
 }
 
 .screens {
+  @apply w-full;
   &__header {
     @apply text-2xl uppercase mb-8;
     @apply flex items-center justify-between;
+    @apply bg-zinc-900;
+    @apply border-b-2 border-zinc-800;
+    @apply pb-3;
   }
   &__links {
     @apply font-bold;
-    @apply border-b-4 border-transparent;
     @apply flex items-center space-x-4;
-    &.active {
-      @apply border-zinc-300;
+    & > span {
+      @apply border-b-4 border-transparent;
+    }
+    & > .active {
+      @apply border-b-4 border-red-500;
     }
   }
 
@@ -23,7 +29,7 @@
     @apply flex items-center space-x-2;
 
     & > svg {
-      @apply w-8 h-8;
+      @apply w-10 h-10;
       @apply bg-zinc-800 p-1;
     }
   }

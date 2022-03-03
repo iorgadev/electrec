@@ -9,13 +9,16 @@
 
 html,
 body {
-  @apply bg-zinc-900 text-white;
+  // @apply bg-zinc-900 text-white;
+  @apply rounded-l-xl;
+  @apply overflow-hidden;
 }
 
 .btn-blue {
   @apply px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-600;
 }
 * {
+  @apply select-none;
   @apply font-montserrat;
   @apply scrollbar-thin scrollbar-thumb-pink-400 scrollbar-track-pink-400 overflow-y-scroll;
 }

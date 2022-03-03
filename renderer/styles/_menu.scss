@@ -3,7 +3,8 @@
   @apply flex flex-col;
   @apply w-2/6 max-w-xs;
   @apply bg-zinc-800;
-  @apply p-5 rounded-lg;
+  @apply border-r border-zinc-700;
+  @apply p-5;
 
   &__logo {
     @apply mb-10;
@@ -34,6 +35,7 @@
     &__quit {
       @apply flex-grow flex items-end;
       &__item {
+        @apply cursor-pointer;
         @apply flex space-x-2 items-center;
         @apply w-full text-base uppercase;
       }
