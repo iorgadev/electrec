@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import Head from "next/head";
 import Image from "next/image";
-import electron, { dialog } from "electron";
+import electron from "electron";
 import { writeFile } from "fs";
+
+import { ViewListIcon, ViewGridIcon } from "@heroicons/react/outline";
 
 function Home() {
   const desktopCapturer = electron.desktopCapturer;
@@ -10,7 +11,6 @@ function Home() {
   const [windows, setWindows] = useState<Electron.DesktopCapturerSource[]>([]);
   const [source, setSource] = useState<Electron.DesktopCapturerSource>();
   const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder>();
-
   const [isRecording, setIsRecording] = useState(false);
 
   useEffect(() => {
@@ -19,6 +19,7 @@ function Home() {
         .getSources({
           types: ["window"],
           thumbnailSize: { width: 320, height: 200 },
+          fetchWindowIcons: true,
         })
         .then((s) => {
           setWindows(s);
@@ -54,6 +55,9 @@ function Home() {
     });
     const buffer = Buffer.from(await blob.arrayBuffer());
     const filePath = `vid-${Date.now()}.webm`;
+    // const savePath = path.join(__dirname, "/videos/", filePath);
+
+    // console.log("path: ", savePath);
 
     if (filePath) {
       writeFile(filePath, buffer, () => {
@@ -99,26 +103,45 @@ function Home() {
   }
 
   return (
-    <React.Fragment>
-      <Head>
-        <title>Home - Nextron (with-typescript-tailwindcss)</title>
-      </Head>
-      <div>
+    <div className="screens">
+      <div className="screens__header">
+        <div className="screens__links">
+          <span className="active">Windows</span>
+          <span>Screens</span>
+        </div>
+        <div className="screens__icons">
+          <ViewListIcon />
+          <ViewGridIcon />
+        </div>
+      </div>
+      <div className="screens__thumbnails">
         {windows.map((w, i) => (
-          <Image
-            key={w.id}
-            src={w.thumbnail.toDataURL()}
-            alt={w.name}
-            width={320}
-            height={200}
-            layout="intrinsic"
-            onClick={(e) => handleSource(i)}
-          />
+          <div className="screens__thumbnail">
+            <div className="screens__title">
+              <Image
+                src={w.appIcon ? w.appIcon.toDataURL() : "/images/logo.png"}
+                width={16}
+                height={16}
+                alt="app icon"
+                layout="fixed"
+              />
+              <span>{w.name.slice(0, 20)}</span>
+            </div>
+            <Image
+              key={w.id}
+              src={w.thumbnail.toDataURL()}
+              alt={w.name}
+              width={240}
+              height={150}
+              layout="intrinsic"
+              onClick={(e) => handleSource(i)}
+            />
+          </div>
         ))}
       </div>
       <button onClick={handleStart}>Record</button> -
-      <button onClick={stopRecording}>Stop</button>
-    </React.Fragment>
+      <button onClick={stopRecording}>Stop</button> -
+    </div>
   );
 }
 
