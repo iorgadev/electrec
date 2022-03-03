@@ -27,11 +27,11 @@ function Menu() {
         </li>
       </ul>
 
-      <div
-        className="menu__links__quit"
-        onClick={() => ipcRenderer.send("quit", "quitApp")}
-      >
-        <div className="menu__links__quit__item">
+      <div className="menu__links__quit">
+        <div
+          className="menu__links__quit__item"
+          onClick={() => ipcRenderer.invoke("an-action", [1, 2, 3])}
+        >
           <LogoutIcon />
           <span>Quit</span>
         </div>

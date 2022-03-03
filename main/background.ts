@@ -1,4 +1,5 @@
 import { app } from "electron";
+import { ipcMain } from "electron";
 import serve from "electron-serve";
 import { createWindow } from "./helpers";
 
@@ -28,5 +29,10 @@ if (isProd) {
 })();
 
 app.on("window-all-closed", () => {
+  app.quit();
+});
+
+ipcMain.handle("an-action", async (event, arg) => {
+  // do stuff
   app.quit();
 });
