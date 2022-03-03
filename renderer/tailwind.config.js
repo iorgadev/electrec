@@ -1,10 +1,18 @@
 module.exports = {
   darkMode: false, // or 'media' or 'class'
+  content: [
+    "./pages/*.{html,js,jsx,tsx}",
+    "./components/**/*.{html,js,jsx,tsx}",
+  ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        montserrat: ["Montserrat"],
+      },
+    },
   },
   variants: {
     extend: {},
   },
-  plugins: [],
+  plugins: [require("tailwind-scrollbar")],
 };
