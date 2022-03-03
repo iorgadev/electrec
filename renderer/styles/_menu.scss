@@ -1,0 +1,45 @@
+.menu {
+  @apply flex-none;
+  @apply flex flex-col;
+  @apply w-2/6 max-w-xs;
+  @apply bg-zinc-800;
+  @apply p-5 rounded-lg;
+
+  &__logo {
+    @apply mb-10;
+    @apply text-5xl font-bold uppercase text-orange-500;
+  }
+
+  &__links {
+    @apply flex flex-col space-y-3;
+
+    & svg {
+      @apply w-7 h-7;
+    }
+    & > li {
+      @apply flex space-x-3 items-center;
+      @apply py-2 pl-2 rounded-lg;
+      @apply select-none cursor-pointer;
+      @apply text-2xl;
+
+      &:hover {
+        @apply bg-zinc-900;
+      }
+    }
+
+    &__record {
+      @apply bg-red-900;
+    }
+
+    &__quit {
+      @apply flex-grow flex items-end;
+      &__item {
+        @apply flex space-x-2 items-center;
+        @apply w-full text-base uppercase;
+      }
+      & svg {
+        @apply w-5 h-5;
+      }
+    }
+  }
+}

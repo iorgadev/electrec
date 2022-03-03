@@ -1,0 +1,48 @@
+.container {
+  @apply flex-grow;
+  @apply h-full;
+  @apply px-10;
+  @apply scrollbar-thin scrollbar-thumb-white  scrollbar-track-red-500 overflow-y-scroll;
+}
+
+.screens {
+  &__header {
+    @apply text-2xl uppercase mb-8;
+    @apply flex items-center justify-between;
+  }
+  &__links {
+    @apply font-bold;
+    @apply border-b-4 border-transparent;
+    @apply flex items-center space-x-4;
+    &.active {
+      @apply border-zinc-300;
+    }
+  }
+
+  &__icons {
+    @apply flex items-center space-x-2;
+
+    & > svg {
+      @apply w-8 h-8;
+      @apply bg-zinc-800 p-1;
+    }
+  }
+
+  &__thumbnails {
+    @apply grid grid-cols-3 gap-3;
+    // @apply border border-red-500;
+  }
+  &__thumbnail {
+    // @apply border border-red-500;
+    @apply col-span-1;
+    @apply flex flex-col items-start;
+    @apply bg-zinc-800 rounded-md;
+    @apply border border-zinc-700;
+  }
+  &__title {
+    @apply flex space-x-1 items-center justify-start;
+    @apply w-full py-1 px-2;
+    @apply bg-zinc-900;
+    @apply whitespace-nowrap;
+  }
+}
