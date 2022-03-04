@@ -10,14 +10,23 @@ import { isRecordingAtom, sourceAtom } from "./_app";
 
 function Home() {
   const desktopCapturer = electron.desktopCapturer;
-  const recordedChunks = [];
+  let recordedChunks = [];
   const [windows, setWindows] = useState<Electron.DesktopCapturerSource[]>([]);
   const [source, setSource] = useAtom(sourceAtom);
   const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder>();
-  // const [isRecording, setIsRecording] = useState(false);
   const [isRecording, setIsRecording] = useAtom(isRecordingAtom);
 
-  useEffect(() => {}, [isRecording]);
+  useEffect(() => {
+    if (mediaRecorder == null) {
+      console.log("mediaRecorder is null");
+      return;
+    }
+    if (!isRecording) {
+      stopRecording();
+    } else {
+      handleStart();
+    }
+  }, [isRecording]);
 
   useEffect(() => {
     if (desktopCapturer) {
@@ -39,53 +48,57 @@ function Home() {
       console.log("mediaRecorder is null");
       return;
     }
-
-    if (!isRecording) {
-      console.log("RECORDING: STARTED");
-      mediaRecorder.start();
-      setIsRecording(true);
-    }
+    console.log("RECORDING: STARTED");
+    // recordedChunks = [];
+    mediaRecorder.start();
   };
 
   //STOP RECORDING
   const stopRecording = () => {
+    if (!mediaRecorder || mediaRecorder.state === "inactive") {
+      console.log("mediaRecorder is null");
+      return;
+    }
     console.log("RECORDING: STOPPED");
     mediaRecorder.stop();
-    setIsRecording(false);
+    // setIsRecording(false);
   };
 
   // HANDLE STOP RECORDING
   async function handleStop() {
+    // if (!mediaRecorder || mediaRecorder.state === "inactive") return;
+
     const blob = new Blob(recordedChunks, {
       type: "video/webm; codecs=vp9",
     });
     const buffer = Buffer.from(await blob.arrayBuffer());
     const filePath = `vid-${Date.now()}.webm`;
-    // const savePath = path.join(__dirname, "/videos/", filePath);
-
-    // console.log("path: ", savePath);
 
     if (filePath) {
       writeFile(filePath, buffer, () => {
         console.log("Video saved successfully.");
       });
+      recordedChunks = [];
     }
   }
 
   // HANDLE
   const handleDataAvailable = (e) => {
+    console.log("DATA AVAILABLE: ", e);
+
     recordedChunks.push(e.data);
   };
 
   // HANDLE SOURCE
   function handleSource(id: number) {
     console.log("WINDOW SELECTED: ", id);
-    setSource(windows[id]);
+    setSource((prev) => windows[id]);
     setVideoSource(windows[id]);
   }
 
   // SET VIDEO SOURCE
   async function setVideoSource(src: Electron.DesktopCapturerSource) {
+    recordedChunks = [];
     const constraints = {
       audio: false,
       video: {
@@ -104,7 +117,7 @@ function Home() {
       //register event handler
       recorder.ondataavailable = handleDataAvailable;
       recorder.onstop = handleStop;
-      setMediaRecorder(recorder);
+      setMediaRecorder((prev) => recorder);
     });
   }
 
@@ -123,7 +136,7 @@ function Home() {
       </div>
       <div className="screens__thumbnails">
         {windows.map((w, i) => (
-          <div className="screens__thumbnail">
+          <div className="screens__thumbnail" key={i}>
             <div className="screens__title">
               <Image
                 src={w.appIcon ? w.appIcon.toDataURL() : "/images/logo.png"}
