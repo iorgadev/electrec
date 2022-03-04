@@ -1,10 +1,6 @@
 .wrapper {
   @apply flex relative;
-  // @apply overflow-hidden;
   @apply h-screen;
-  // @apply p-5;
   @apply bg-zinc-900;
   @apply text-white;
-
-  @apply rounded-lg;
 }

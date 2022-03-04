@@ -44,6 +44,11 @@
     @apply flex flex-col items-start;
     @apply bg-zinc-800 rounded-md;
     @apply border border-zinc-700;
+    @apply cursor-pointer;
+
+    &:hover {
+      @apply border-zinc-500;
+    }
   }
   &__title {
     @apply flex space-x-1 items-center justify-start;

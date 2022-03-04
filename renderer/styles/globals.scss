@@ -9,18 +9,61 @@
 
 html,
 body {
-  // @apply bg-zinc-900 text-white;
-  @apply rounded-l-xl;
   @apply overflow-hidden;
 }
 
-.btn-blue {
-  @apply px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-600;
-}
 * {
   @apply select-none;
   @apply font-montserrat;
   @apply scrollbar-thin scrollbar-thumb-pink-400 scrollbar-track-pink-400 overflow-y-scroll;
+}
+
+.layout {
+  @apply flex flex-col;
+
+  &__logo {
+    @apply flex-none flex space-x-2 items-center;
+    @apply pl-5 text-neutral-400 font-semibold;
+  }
+  &__draggable {
+    @apply flex items-center justify-between;
+    @apply h-10 bg-neutral-900;
+    -webkit-app-region: drag;
+  }
+}
+
+.logo__image {
+  @apply flex-none;
+}
+
+.appwindow {
+  @apply flex space-x-3 items-center;
+  @apply h-full;
+  @apply px-5;
+
+  -webkit-app-region: no-drag;
+  & > div {
+    @apply w-3.5 h-3.5;
+    @apply rounded-sm;
+    @apply cursor-pointer;
+    &:hover {
+      @apply shadow-inner;
+      & > svg {
+        filter: drop-shadow(1px 1px 0px #000000);
+      }
+    }
+    &.minimize {
+      @apply bg-green-600;
+      @apply text-green-200;
+    }
+    &.expand {
+      @apply bg-yellow-600;
+    }
+    &.close {
+      @apply bg-red-600;
+      @apply text-red-200;
+    }
+  }
 }
 
 @import "./wrapper";
