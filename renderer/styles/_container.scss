@@ -1,8 +1,10 @@
 .container {
   @apply flex-grow;
-  @apply h-full;
+  // @apply h-full;
   @apply px-10 py-5;
   @apply scrollbar-thin scrollbar-thumb-white  scrollbar-track-red-500 overflow-y-scroll;
+
+  // @apply border border-red-500;
 }
 
 .screens {
@@ -42,8 +44,8 @@
     // @apply border border-red-500;
     @apply col-span-1;
     @apply flex flex-col items-start;
-    @apply bg-zinc-800 rounded-md;
-    @apply border border-zinc-700;
+    @apply bg-zinc-800;
+    @apply border border-zinc-800;
     @apply cursor-pointer;
 
     &:hover {
@@ -54,6 +56,6 @@
     @apply flex space-x-1 items-center justify-start;
     @apply w-full py-1 px-2;
     @apply bg-zinc-900;
-    @apply whitespace-nowrap;
+    @apply text-sm whitespace-nowrap;
   }
 }

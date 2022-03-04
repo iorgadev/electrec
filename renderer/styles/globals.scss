@@ -10,6 +10,7 @@
 html,
 body {
   @apply overflow-hidden;
+  // @apply border border-black;
 }
 
 * {
@@ -20,6 +21,9 @@ body {
 
 .layout {
   @apply flex flex-col;
+  // @apply overflow-hidden;
+  @apply border border-black;
+  @apply h-screen;
 
   &__logo {
     @apply flex-none flex space-x-2 items-center;
@@ -27,7 +31,8 @@ body {
   }
   &__draggable {
     @apply flex items-center justify-between;
-    @apply h-10 bg-neutral-900;
+    @apply h-14 bg-neutral-900;
+    @apply border-b border-neutral-700;
     -webkit-app-region: drag;
   }
 }
@@ -38,7 +43,7 @@ body {
 
 .appwindow {
   @apply flex space-x-3 items-center;
-  @apply h-full;
+  // @apply h-full;
   @apply px-5;
 
   -webkit-app-region: no-drag;

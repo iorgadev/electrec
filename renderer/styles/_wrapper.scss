@@ -1,6 +1,7 @@
 .wrapper {
   @apply flex relative;
-  @apply h-screen;
+  // @apply h-screen;
   @apply bg-zinc-900;
   @apply text-white;
+  // @apply border border-red-500;
 }
