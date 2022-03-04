@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import { ipcRenderer } from "electron";
 import {
   LogoutIcon,
   VideoCameraIcon,
@@ -15,6 +14,28 @@ import { isRecordingAtom, sourceAtom } from "../pages/_app";
 function Menu() {
   const [isRecording, setIsRecording] = useAtom(isRecordingAtom);
   const [source] = useAtom(sourceAtom);
+
+  const [timer, setTimer] = useState(0);
+
+  // function that takes an int and returns a string with the number of minutes and seconds
+  const formatTime = (seconds: number) => {
+    const minutes = Math.floor(seconds / 60);
+    const secondsLeft = seconds % 60;
+    return `${minutes}:${secondsLeft < 10 ? "0" : ""}${secondsLeft}`;
+  };
+
+  // set interval to update timer
+  useEffect(() => {
+    let interval;
+    if (isRecording) {
+      interval = setInterval(() => {
+        setTimer((prev) => prev + 1);
+      }, 1000);
+    } else {
+      setTimer((prev) => 0);
+    }
+    return () => clearInterval(interval);
+  }, [isRecording]);
 
   return (
     <div className="menu">
@@ -48,9 +69,22 @@ function Menu() {
             />
             <span>{source.name}</span>
           </div>
+          <Image src={source.thumbnail.toDataURL()} width={240} height={150} />
           <div className="menu__buttons">
-            <PlayIcon className="play" />
-            <span>Start Recording</span>
+            <div
+              className={`menu__buttons__record ${
+                isRecording ? "stop" : "play"
+              }`}
+              onClick={() => setIsRecording((prev) => !prev)}
+            >
+              {isRecording ? (
+                <StopIcon className="stop" />
+              ) : (
+                <PlayIcon className="play" />
+              )}
+              <span>{isRecording ? "Stop" : "Start"}</span>
+            </div>
+            <span className="menu__buttons__time">{formatTime(timer)}</span>
           </div>
         </div>
       ) : null}
