@@ -5,13 +5,19 @@ import { writeFile } from "fs";
 
 import { ViewListIcon, ViewGridIcon } from "@heroicons/react/outline";
 
+import { useAtom } from "jotai";
+import { isRecordingAtom, sourceAtom } from "./_app";
+
 function Home() {
   const desktopCapturer = electron.desktopCapturer;
   const recordedChunks = [];
   const [windows, setWindows] = useState<Electron.DesktopCapturerSource[]>([]);
-  const [source, setSource] = useState<Electron.DesktopCapturerSource>();
+  const [source, setSource] = useAtom(sourceAtom);
   const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder>();
-  const [isRecording, setIsRecording] = useState(false);
+  // const [isRecording, setIsRecording] = useState(false);
+  const [isRecording, setIsRecording] = useAtom(isRecordingAtom);
+
+  useEffect(() => {}, [isRecording]);
 
   useEffect(() => {
     if (desktopCapturer) {
@@ -106,8 +112,9 @@ function Home() {
     <div className="screens">
       <div className="screens__header">
         <div className="screens__links">
-          <span className="active">Windows</span>
-          <span>Screens</span>
+          <span>Source: </span>
+          {/* <span>Windows</span> */}
+          {/* <span>Screens</span> */}
         </div>
         <div className="screens__icons">
           <ViewListIcon />
