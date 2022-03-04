@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import { ipcRenderer } from "electron";
 import {
   LogoutIcon,
@@ -6,11 +7,18 @@ import {
   FolderDownloadIcon,
   CogIcon,
 } from "@heroicons/react/outline";
+import { PlayIcon, StopIcon } from "@heroicons/react/solid";
+
+import { useAtom } from "jotai";
+import { isRecordingAtom, sourceAtom } from "../pages/_app";
 
 function Menu() {
+  const [isRecording, setIsRecording] = useAtom(isRecordingAtom);
+  const [source] = useAtom(sourceAtom);
+
   return (
     <div className="menu">
-      <span className="menu__logo">RecBit</span>
+      {/* <span className="menu__logo">RecBit</span> */}
 
       <ul className="menu__links">
         <li className="menu__links__record">
@@ -27,15 +35,25 @@ function Menu() {
         </li>
       </ul>
 
-      <div className="menu__links__quit">
-        <div
-          className="menu__links__quit__item"
-          onClick={() => ipcRenderer.invoke("an-action", [1, 2, 3])}
-        >
-          <LogoutIcon />
-          <span>Quit</span>
+      {/* SOURCE IS SET, SHOW RECORD BUTTONS */}
+      {source ? (
+        <div className="menu__recorder">
+          <div className="menu__source">
+            <Image
+              src={source.appIcon.toDataURL()}
+              width={16}
+              height={16}
+              layout="intrinsic"
+              className="fixed"
+            />
+            <span>{source.name}</span>
+          </div>
+          <div className="menu__buttons">
+            <PlayIcon className="play" />
+            <span>Start Recording</span>
+          </div>
         </div>
-      </div>
+      ) : null}
     </div>
   );
 }
