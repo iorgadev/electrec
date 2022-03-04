@@ -1,6 +1,7 @@
 import { app } from "electron";
 import { ipcMain } from "electron";
 import serve from "electron-serve";
+import { BrowserWindow } from "electron";
 import { createWindow } from "./helpers";
 
 const isProd: boolean = process.env.NODE_ENV === "production";
@@ -32,7 +33,10 @@ app.on("window-all-closed", () => {
   app.quit();
 });
 
-ipcMain.handle("an-action", async (event, arg) => {
-  // do stuff
+ipcMain.handle("minimize-app-button", async (event, arg) => {
+  // mainWindow.minimize();
+  BrowserWindow.getFocusedWindow().minimize();
+});
+ipcMain.handle("close-app-button", async (event, arg) => {
   app.quit();
 });
