@@ -21,7 +21,7 @@ export default (
 
   const customOptions = {
     frame: false, // frameless window setting
-    minWidth: 800,
+    minWidth: 640,
     minHeight: 500,
     transparent: true,
     webPreferences: {
