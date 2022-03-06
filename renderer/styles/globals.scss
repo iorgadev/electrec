@@ -32,7 +32,7 @@ body {
   &__draggable {
     @apply flex items-center justify-between;
     @apply h-14 bg-neutral-900;
-    @apply border-b border-neutral-700;
+    @apply border-b border-neutral-800;
     -webkit-app-region: drag;
   }
 }
@@ -71,6 +71,22 @@ body {
   }
 }
 
+.nodrag {
+  -webkit-app-region: no-drag;
+}
+@keyframes slideinright {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0%);
+  }
+}
+
 @import "./wrapper";
 @import "./menu";
 @import "./container";
+
+@import "./components/sources";
+@import "./components/recorder";

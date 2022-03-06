@@ -1,0 +1,11 @@
+.sources {
+  @apply w-screen flex-none;
+  @apply grid grid-cols-3 gap-5;
+  @apply p-5;
+  // @apply scrollbar-thin scrollbar-thumb-white  scrollbar-track-red-500 overflow-y-scroll;
+
+  @apply transform transition-all duration-300 translate-x-0;
+  &.slide {
+    @apply -translate-x-full;
+  }
+}

@@ -1,0 +1,67 @@
+.recorder {
+  @apply w-screen flex-none;
+  @apply transform transition-all duration-300 translate-x-0;
+
+  &.active {
+    @apply -translate-x-full;
+  }
+
+  &__header {
+    @apply flex space-x-3 items-center;
+    @apply p-3 mb-5;
+    @apply border-b border-zinc-800;
+
+    & > svg {
+      @apply w-8 h-8;
+      @apply cursor-pointer;
+      @apply transform transition-all duration-75 scale-100;
+      &:hover {
+        @apply text-zinc-300;
+      }
+      &:focus,
+      &:active {
+        @apply scale-75;
+      }
+    }
+    & > h2 {
+      @apply pl-4;
+      @apply border-l-2 border-zinc-800;
+      @apply text-xl uppercase;
+    }
+  }
+
+  &__screen {
+    @apply flex items-center justify-center;
+  }
+  &__thumbnail {
+    // @apply p-4;
+    @apply border-8 border-zinc-700;
+  }
+}
+
+.controls {
+  @apply flex items-center justify-center;
+
+  &__buttons {
+    @apply flex flex-col;
+    & > svg {
+      @apply w-10 h-10;
+    }
+  }
+
+  &__button {
+    @apply flex flex-col;
+
+    &.play {
+      @apply text-green-500;
+    }
+    &.stop {
+      @apply text-red-500;
+    }
+  }
+
+  &__timer {
+    @apply text-center;
+    // @apply border border-red-500;
+  }
+}

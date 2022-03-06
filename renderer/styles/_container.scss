@@ -1,8 +1,10 @@
 .container {
   @apply flex-grow;
   // @apply h-full;
-  @apply px-10 py-5;
-  @apply scrollbar-thin scrollbar-thumb-white  scrollbar-track-red-500 overflow-y-scroll;
+  // @apply px-10 py-5;
+  // @apply scrollbar-thin scrollbar-thumb-white  scrollbar-track-red-500 overflow-y-scroll;
+  @apply overflow-x-hidden;
+  @apply flex;
 
   // @apply border border-red-500;
 }
@@ -37,8 +39,13 @@
   }
 
   &__thumbnails {
-    @apply grid grid-cols-3 gap-3;
+    @apply grid grid-cols-3 gap-5;
     // @apply border border-red-500;
+    // animation: slideinright 0.2s ease-out;
+    @apply transform transition-all duration-300 translate-x-0;
+    &.slide {
+      @apply translate-x-full;
+    }
   }
   &__thumbnail {
     // @apply border border-red-500;
@@ -57,5 +64,15 @@
     @apply w-full py-1 px-2;
     @apply bg-zinc-900;
     @apply text-sm whitespace-nowrap;
+  }
+}
+
+@keyframes slideinright {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0%);
   }
 }
