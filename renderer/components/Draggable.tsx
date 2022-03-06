@@ -3,9 +3,14 @@ import Image from "next/image";
 import { ipcRenderer } from "electron";
 import { XIcon, MinusSmIcon } from "@heroicons/react/solid";
 
+import { useAtom } from "jotai";
+import { sourceAtom } from "../pages/_app";
+
 export default function Draggable({}) {
   const [minimizeHover, setMinimizeHover] = useState(false);
   const [closeHover, setCloseHover] = useState(false);
+
+  const [source, setSource] = useAtom(sourceAtom);
 
   return (
     <div className="layout__draggable">
@@ -18,7 +23,7 @@ export default function Draggable({}) {
           layout="intrinsic"
           className="logo__image"
         />
-        <span>Record Lite</span>
+        <span>Electrec</span>
       </div>
       <div className="appwindow">
         <div

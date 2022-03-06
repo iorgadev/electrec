@@ -5,6 +5,7 @@ import "../styles/globals.scss";
 import { atom } from "jotai";
 export const isRecordingAtom = atom(false);
 export const sourceAtom = atom<Electron.DesktopCapturerSource | null>(null);
+export const timerAtom = atom<number>(0);
 
 export const startRecording = (mediaRecorder) => {
   mediaRecorder.start();

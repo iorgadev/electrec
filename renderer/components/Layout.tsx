@@ -6,7 +6,6 @@ function Layout({ children }) {
     <div className="layout">
       <Draggable />
       <div className="wrapper">
-        <Menu />
         <div className="container">{children}</div>
       </div>
     </div>
