@@ -41,27 +41,57 @@
 
 .controls {
   @apply flex items-center justify-center;
+  @apply my-3;
 
   &__buttons {
     @apply flex flex-col;
-    & > svg {
-      @apply w-10 h-10;
-    }
   }
 
   &__button {
-    @apply flex flex-col;
+    @apply flex items-center space-x-3;
+    // @apply w-40;
+    // @apply px-5;
+    @apply w-auto;
+    @apply bg-zinc-700;
+    @apply rounded-lg;
+    @apply text-xl uppercase;
+    @apply cursor-pointer;
+
+    & > svg {
+      @apply flex-shrink-0;
+      @apply w-20 h-20;
+    }
 
     &.play {
       @apply text-green-500;
+      &:hover {
+        @apply text-green-400;
+      }
     }
     &.stop {
       @apply text-red-500;
+      animation: pulse 2s infinite;
+      &:hover {
+        @apply text-red-400;
+      }
     }
   }
 
   &__timer {
     @apply text-center;
     // @apply border border-red-500;
+  }
+}
+
+//keyframes animation that pulses the button and reduces opacity
+@keyframes pulse {
+  0% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
   }
 }

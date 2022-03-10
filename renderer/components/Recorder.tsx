@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import electron from "electron";
+// import electron from "electron";
 import { writeFile } from "fs";
+import { promises as fs } from "fs";
+// import webmToMp4 from "webm-to-mp4";
 
 import { ViewListIcon, ViewGridIcon } from "@heroicons/react/outline";
 import { ChevronLeftIcon, StopIcon, PlayIcon } from "@heroicons/react/solid";
@@ -53,14 +55,19 @@ function Recorder() {
   async function stopRecording() {
     const blob = new Blob(recordedChunks, {
       type: "video/webm; codecs=vp9",
+      // type: 'video/mp4; codecs="avc1.424028, mp4a.40.2"',
     });
     const buffer = Buffer.from(await blob.arrayBuffer());
     const filePath = `vid-${Date.now()}.webm`;
+    const filePathmp4 = `vid-${Date.now()}.mp4`;
 
     if (filePath) {
-      writeFile(filePath, buffer, () => {
+      await writeFile(filePath, buffer, () => {
         console.log("Video saved successfully.");
       });
+
+      await fs.writeFile(filePathmp4, buffer);
+
       recordedChunks = [];
     }
   }
@@ -91,7 +98,10 @@ function Recorder() {
 
     const mediaDevices = navigator.mediaDevices as any;
     await mediaDevices.getUserMedia(constraints).then((stream) => {
-      const options = { mimeType: "video/webm; codecs=vp9" };
+      const options = {
+        mimeType: "video/webm; codecs=vp9",
+        // mimeType: 'video/mp4; codecs="avc1.424028, mp4a.40.2"',
+      };
       const recorder = new MediaRecorder(stream, options);
       recorder.ondataavailable = handleDataAvailable;
       recorder.onstop = stopRecording;
@@ -123,7 +133,7 @@ function Recorder() {
   return (
     <div className={`recorder ${source ? `active` : ``}`}>
       <div className="recorder__header">
-        <ChevronLeftIcon onClick={() => setSource(null)} />
+        <ChevronLeftIcon onClick={() => setSource()} />
         <h2>Recorder</h2>
       </div>
       <div className="recorder__screen">
@@ -145,11 +155,19 @@ function Recorder() {
           onClick={() => setIsRecording((prev) => !prev)}
         >
           {isRecording ? (
-            <StopIcon className="controls__button stop" />
+            <div className="controls__button">
+              <StopIcon className="controls__button stop" />
+              {/* <span>Stop</span> */}
+            </div>
           ) : (
-            <PlayIcon className="controls__button play" />
+            <div className="controls__button">
+              <PlayIcon className="controls__button play" />
+              {/* <span>Start</span> */}
+            </div>
           )}
-          <span className="controls__timer">{formatTime(timer)}</span>
+          {isRecording ? (
+            <span className="controls__timer">{formatTime(timer)}</span>
+          ) : null}
         </div>
       </div>
     </div>

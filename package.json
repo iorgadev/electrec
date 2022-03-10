@@ -15,7 +15,8 @@
     "electron-serve": "^1.1.0",
     "electron-store": "^8.0.1",
     "jotai": "^1.6.0",
-    "sass": "^1.49.9"
+    "sass": "^1.49.9",
+    "webm-to-mp4": "^1.0.0"
   },
   "devDependencies": {
     "@types/dom-mediacapture-record": "^1.0.11",
