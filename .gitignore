@@ -33,3 +33,7 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# video files
+*.mp4
+*.webm
